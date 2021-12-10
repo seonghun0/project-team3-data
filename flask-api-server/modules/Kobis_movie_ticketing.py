@@ -1,4 +1,5 @@
 
+
 ############################################ Kobis 영화예매율 ###################################################
 def Kobis_movie_ticketing(output_path):
     import requests # 웹 요청 도구
@@ -56,12 +57,14 @@ def Kobis_movie_ticketing(output_path):
     cursor.close()
     conn.close()
 
+    browser_proxy.close()
     print("success")
+    return True
 
     # browser_proxy.close() #주석 풀어서 사용하세요) 가장 마지막 크롬 하나만 종료
     # browser_proxy.quit() #주석 풀어서 사용하세요) 크롬s 모두 종료
 
 if __name__ == "__main__":
-    Kobis_movie_ticketing("../data-files/test- kobis.csv")
+    Kobis_movie_ticketing("../data-files/test-kobis.csv")
     pass
 
