@@ -62,6 +62,6 @@ def Kobis_movie_ticketing(output_path):
     # browser_proxy.quit() #주석 풀어서 사용하세요) 크롬s 모두 종료
 
 if __name__ == "__main__":
-    Kobis_movie_ticketing("../data-files/test- kobis.csv")
+    Kobis_movie_ticketing("../data-files/test-kobis.csv")
     pass
 
