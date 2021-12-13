@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 def genrecommend(title,top=30):
     import pandas as pd
     import numpy as np
@@ -129,6 +130,8 @@ if __name__ == "__main__":
     genrecommend('스타워즈: 에피소드 4 새로운 희망')
     pass
 =======
+=======
+>>>>>>> 0db9c01b98edf7effa32e93df56269acd8360e23
 def genre():
     print('hello')
 
@@ -136,4 +139,7 @@ if __name__ == "__main__":
     import genrerun
     x = int(input('영화 :'))
     genrerun.recommend(x, data, similarity_gernre)
+<<<<<<< HEAD
+>>>>>>> 0db9c01b98edf7effa32e93df56269acd8360e23
+=======
 >>>>>>> 0db9c01b98edf7effa32e93df56269acd8360e23
