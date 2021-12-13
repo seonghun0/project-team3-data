@@ -1,9 +1,13 @@
 from flask import Blueprint
 from flask import jsonify
 from flask import make_response
+from flask import request
+
 import json
 
 team_three = Blueprint('team_three', __name__)
+
+
 
 @team_three.route("/")
 def index():
@@ -18,6 +22,28 @@ def kobis():
         return "success"
     else:
         return "fail"
+
+@team_three.route("/genre")
+def genrerecommend():
+    from flask import current_app
+    from modules import genrerun
+    import pickle
+    x = int(request.args.get('movie_id',0))
+
+    # if g.similarity_genre is None:
+    #     with open('modules/similarity_genre.pickle', "rb") as f:
+    #         similarity_genre = pickle.load(f)
+    #         g.similarity_genre = similarity_genre
+
+    with open('modules/movie_data.pickle', "rb") as f:
+        data = pickle.load(f)
+        data = data.reset_index(drop=True)
+
+    similarity_genre = current_app.config["similarity_genre"]
+
+    target_movie_index = data[data['movie_id'] == x].index.values
+    recommended_movies = genrerun.recommend_movies(target_movie_index, similarity_genre, data, 30)
+    return jsonify(recommended_movies)
 
 @team_three.route("/demo-one")
 def demo_one() :

@@ -10,8 +10,11 @@ def Kobis_movie_ticketing(output_path):
     import pymysql
     import os
     import numpy as np
+    webdriver_options = webdriver.ChromeOptions()
+    webdriver_options .add_argument('headless')
 
-    browser_proxy = webdriver.Chrome('/Users/parkseonghun/kdigital-busan/tools/chromedriver')
+    chromedriver = '/Users/parkseonghun/kdigital-busan/tools/chromedriver'
+    browser_proxy = webdriver.Chrome(chromedriver, options=webdriver_options)
     browser_proxy.get("https://www.kobis.or.kr/kobis/business/stat/boxs/findRealTicketList.do")
     soup = BeautifulSoup(browser_proxy.page_source)
     table = soup.select_one('.tbl_comm.th_sort')

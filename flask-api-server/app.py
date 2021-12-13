@@ -8,6 +8,13 @@ app.register_blueprint(team_one, url_prefix='/team-one')
 app.register_blueprint(team_two, url_prefix='/team-two')
 app.register_blueprint(team_three, url_prefix='/team-three')
 
+with app.app_context():
+    import pickle
+
+    with open('modules/similarity_genre.pickle', "rb") as f:
+        similarity_genre = pickle.load(f)
+        app.config["similarity_genre"] = similarity_genre
+
 @app.route("/")
 def index():
     return "This is API Service App"
