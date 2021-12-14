@@ -40,7 +40,7 @@ def Kobis_movie_ticketing(output_path):
 
     # csv파일 DB(mysql)에 저장  
     # 1. connect
-    conn = pymysql.connect(host="127.0.0.1", port=3306, db='finalteam3', user="kdigital", password="mysql", charset="utf8")
+    conn = pymysql.connect(host="3.38.186.130", port=3306, db='finalteam3', user="kdigital3", password="mysql", charset="utf8")
 
     # 2. get command object
     cursor = conn.cursor()
