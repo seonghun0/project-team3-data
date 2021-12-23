@@ -36,6 +36,7 @@ def genrerecommend():
 
     target_movie_index = data[data['movie_id'] == x].index.values
     recommended_movies = genrerun.recommend_movies(target_movie_index, similarity_genre2, data, 30)
+    
     return recommended_movies
 
 @team_three.route("/recommend")
@@ -48,8 +49,9 @@ def userrecommend():
         sr.surprise_recommender()
     with open('algo.pickle', "rb") as f:
         algo = pickle.load(f)
-    
-    sr.movies()    
+
+    if not os.path.exists("movies.pickle"):
+        sr.movies()    
     with open('movies.pickle', "rb") as f:
         movies = pickle.load(f)
     
@@ -57,10 +59,7 @@ def userrecommend():
     with open('ratings.pickle', "rb") as f:
         ratings = pickle.load(f)
 
-    if not os.path.exists("unseen_movies.pickle"):
-        unseen_list = sr.get_unseen_surprise(ratings, movies, x)
-    with open('unseen_movies.pickle', "rb") as f:
-        unseen_list= pickle.load(f)
+    unseen_list = sr.get_unseen_surprise(ratings, movies, x)
 
     top_movies_preds = sr.recomm_movie_by_surprise(algo, x, unseen_list,movies, top_n=10)
 

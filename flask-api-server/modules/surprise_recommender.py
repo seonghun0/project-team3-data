@@ -1,5 +1,6 @@
 def surprise_recommender():
     from surprise import SVD,Dataset
+    import pickle
 
     # 내장 데이터인 무비렌즈 데이터 로드하고 학습/테스트 데이터로 분리
     data = Dataset.load_builtin('ml-100k')
@@ -16,7 +17,7 @@ def movies():
     import pandas as pd
     import pickle
     # 1. connect
-    conn = pymysql.connect(host="3.38.186.130", port=3306, db="finalteam3", user="kdigital3", password="mysql", charset="utf8")
+    conn = pymysql.connect(host="127.0.0.1", port=3306, db="finalteam3", user="kdigital", password="mysql", charset="utf8")
 
     # 2. get command object
     cursor = conn.cursor()
@@ -43,7 +44,7 @@ def ratings():
     import pickle
     # ratings 가져오기 
     # 1. connect
-    conn = pymysql.connect(host="3.38.186.130", port=3306, db="finalteam3", user="kdigital3", password="mysql", charset="utf8")
+    conn = pymysql.connect(host="127.0.0.1", port=3306, db="finalteam3", user="kdigital", password="mysql", charset="utf8")
 
     # 2. get command object
     cursor = conn.cursor()
@@ -72,15 +73,13 @@ def ratings():
 def get_unseen_surprise(ratings, movies, member_id):
     import pickle
     # 특정 유저가 본 movie id들을 리스트로 할당
-    seen_movies = ratings[ratings['member_id']==member_id]['movie_id'].tolist()
+    seen_movies = ratings[ratings['member_id']== member_id]['movie_id'].tolist()
     # 모든 영화들의 movie id들 리스트로 할당
     total_movies = movies['movie_id'].tolist()
     
     # 모든 영화들의 movie id들 중 특정 유저가 본 movie id를 제외한 나머지 추출
     unseen_movies = [movie for movie in total_movies if movie not in seen_movies]
     
-    with open('unseen_movies.pickle', 'wb') as f:
-        pickle.dump(unseen_movies, f)
     return unseen_movies
      
 def recomm_movie_by_surprise(algo, userId, unseen_movies, movies, top_n=10):
@@ -115,7 +114,8 @@ def recomm_movie_by_surprise(algo, userId, unseen_movies, movies, top_n=10):
 if __name__ == "__main__":
     import pickle
     surprise_recommender()
-
+    movies()
+    ratings()
     with open('movies.pickle', "rb") as f:
         movies = pickle.load(f)
 
